@@ -1,0 +1,48 @@
+services:
+  slurmd:
+    image: localhost/slurmd
+    container_name: linux1
+    hostname: linux1
+    privliged: true
+    volumes:
+      - ./slurmd/entrypoint.sh:/opt/slurm/entrypoint.sh:z
+      - ./slurmd/configs/slurm.conf:/opt/slurm/etc/slurm.conf:z
+      - ./slurmd/configs/cgroup.conf:/opt/slurm/etc/cgroup.conf:z
+      - type: tmpfs
+        target: /run/munge
+        tmpfs:
+          size: 1048576
+          mode: 1755
+      - type: tmpfs
+        target: /var/spool/slurmd
+        tmpfs:
+          mode: 1700
+          size: 5242880
+      - type: tmpfs
+        target: /sys/fs/cgroup
+        tmpfs:
+          mode: 1700
+          size: 5242880
+    networks:
+      - slurm
+#    command: ./entrypoint.sh
+
+  slurmctld:
+    image: localhost/slurmctld
+    container_name: slurmctld
+    hostname: slurmctld
+    volumes:
+      - ./slurmctld/entrypoint.sh:/opt/slurm/entrypoint.sh:z
+      - ./slurmctld/configs/slurm.conf:/opt/slurm/etc/slurm.conf:z
+      - ./slurmctld/statedir:/var/spool/slurmctld:z
+      - type: tmpfs 
+        target: /run/munge
+        tmpfs:
+          size: 1048576
+          mode: 1755
+    networks:
+      - slurm
+#    command: ./entrypoint.sh
+
+networks:
+  slurm:  
