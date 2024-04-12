@@ -7,3 +7,7 @@ down :
 	podman-compose down
 restart : down up
 upgrade : build restart
+create_network:
+	podman network create slurm
+
+init: create_network upgrade
