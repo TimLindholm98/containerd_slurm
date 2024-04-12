@@ -25,7 +25,6 @@ services:
           size: 5242880
     networks:
       - slurm
-#    command: ./entrypoint.sh
 
   slurmctld:
     image: localhost/slurmctld
@@ -42,7 +41,6 @@ services:
           mode: 1755
     networks:
       - slurm
-#    command: ./entrypoint.sh
 
 networks:
   slurm:  
