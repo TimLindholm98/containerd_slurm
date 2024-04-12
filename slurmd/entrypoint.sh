@@ -9,8 +9,8 @@ init(){
 export -f init
 init
 
-if [ -n "$1" ] || [ "$1" != "init"  ]; then
-    /bin/bash -c "$1"
-else
+#if [ -n "$1" ] || [ "$1" != "init"  ]; then
+#    /bin/bash -c "$1"
+#else
     /opt/slurm/sbin/slurmd -Dvv
-fi
+#fi
