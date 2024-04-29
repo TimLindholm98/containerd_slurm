@@ -40,7 +40,7 @@ services:
         target: /var/spool/slurmdbd
         tmpfs:
           size: 104857600
-          mode: 170
+          mode: 1770
     ports:
       - "6819:6819"
     depends_on:
@@ -63,7 +63,7 @@ services:
        target: /var/lib/mysql
        tmpfs:
          size: 524288000
-         mode: 1660
+         mode: 1775
      #- ${PWD}/mariadb:/var/lib/mysql:z
      
     
