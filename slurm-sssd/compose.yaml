@@ -14,8 +14,6 @@ services:
           mode: 1755
     ports:
       - "6817:6817"
-    networks:
-      - default
     depends_on:
       - slurmdbd
       - mariadb
@@ -52,13 +50,5 @@ services:
       - "3306:3306"
     volumes:
      - ${PWD}/mariadb:/var/lib/mysql:z
-
-
-networks:
-  default:
-    enable_ipv6: false
-  db:
-    internal: true
-    enable_ipv6: false
     
 
