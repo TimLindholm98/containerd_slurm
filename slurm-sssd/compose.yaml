@@ -56,7 +56,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-     - ${PWD}/mariadb:/var/lib/mysql
+     - ${PWD}/mariadb:/var/lib/mysql:z
 
 
 networks:
