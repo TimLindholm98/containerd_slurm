@@ -35,9 +35,6 @@ services:
           mode: 1755
     ports:
       - "6819:6819"
-    networks:
-      - default
-      - db
     depends_on:
       - mariadb
     command: ./entrypoint.sh slurmdbd
@@ -51,8 +48,6 @@ services:
       MYSQL_DATABASE: slurm_acct_db
       MYSQL_USER: database_mgr
       MYSQL_PASSWORD: password
-    networks:
-      - db
     ports:
       - "3306:3306"
     volumes:
