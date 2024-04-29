@@ -11,19 +11,21 @@ init_munge(){
 }
 
 start_slurmctld(){
-    chmod 700 /var/spool/slurmctld
-    /opt/slurm/sbin/slurmctld -Dv
+    chmod 700 /var/spool/slurmctld && \
+        /opt/slurm/sbin/slurmctld -Dv
 }
 
 start_slurmd(){
-    chmod 700 /var/spool/slurmd
-    /opt/slurm/sbin/slurmd -Dvvv
+    chmod 700 /var/spool/slurmd && \
+        /opt/slurm/sbin/slurmd -Dvvv
 }
 
 start_slurmdbd(){
-    chmod 700 /var/spool/slurmdbd
-    chmod 600 /opt/slurm/etc/slurmdbd.conf
-    /opt/slurm/sbin/slurmdbd -Dvvv
+    mkdir -p /var/spool/slurmdbd && \
+        chmod 700 /var/spool/slurmdbd && \
+        chown slurm:slurm /var/spool/slurmdbd && \
+        chmod 600 /opt/slurm/etc/slurmdbd.conf && \
+        /opt/slurm/sbin/slurmdbd -Dvvv
 }
 
 export -f init_sssd
