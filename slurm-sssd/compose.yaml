@@ -5,7 +5,6 @@ services:
     container_name: slurmctld
     hostname: slurmctld
     volumes:
-      - ${PWD}/slurmctld/entrypoint.sh:/opt/slurm/entrypoint.sh:z
       - ${PWD}/slurmctld/configs/slurm.conf:/opt/slurm/etc/slurm.conf:z
       - ${PWD}/slurmctld/statedir:/var/spool/slurmctld:z
       - type: tmpfs 
@@ -28,6 +27,7 @@ services:
     hostname: slurmdbd
     volumes:
       - ${PWD}/slurmctld/configs/slurmdbd.conf:/opt/slurm/etc/slurmdbd.conf:z
+      - ${PWD}/slurmctld/configs/slurm.conf:/opt/slurm/etc/slurm.conf:z
       - type: tmpfs 
         target: /run/munge
         tmpfs:

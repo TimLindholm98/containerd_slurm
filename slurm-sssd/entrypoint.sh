@@ -22,6 +22,7 @@ start_slurmd(){
 
 start_slurmdbd(){
     chmod 700 /var/spool/slurmdbd
+    chmod 600 /opt/slurm/etc/slurmdbd.conf
     /opt/slurm/sbin/slurmdbd -Dvvv
 }
 
