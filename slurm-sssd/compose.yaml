@@ -40,7 +40,7 @@ services:
         target: /var/spool/slurmdbd
         tmpfs:
           size: 104857600
-          mode: 1600
+          mode: 170
     ports:
       - "6819:6819"
     depends_on:
