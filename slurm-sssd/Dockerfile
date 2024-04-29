@@ -75,5 +75,5 @@ EXPOSE 6817
 EXPOSE 60000-63000
 
 # Startup
-COPY entrypoint_slurmctld.sh ./entrypoint.sh
-CMD [ "./entrypoint.sh" ]
+COPY entrypoint.sh ./entrypoint.sh
+CMD [ "./entrypoint.sh", "slurmd" ]
