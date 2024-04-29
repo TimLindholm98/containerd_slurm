@@ -32,7 +32,8 @@ start_slurmdbd(){
 export -f init_sssd
 export -f init_munge
 export -f start_slurmctld
-export -f start_slurmd
+export -f start_slurm
+export -f start_slurmdbd
 
 if [[ $1 == "slurmctld" ]]; then
     init_sssd && \
