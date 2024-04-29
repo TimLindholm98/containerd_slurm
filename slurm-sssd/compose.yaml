@@ -20,6 +20,7 @@ services:
     depends_on:
       - slurmdbd
       - mariadb
+    command: ./entrypoint.sh slurmctld
 
   slurmdbd:
     image: localhost/sssd-slurm
@@ -39,18 +40,17 @@ services:
       - db
     depends_on:
       - mariadb
-    
+    command: ./entrypoint.sh slurmdbd
+
   mariadb:
     image: mariadb:latest
+    container_name: mariadb
+    hostname: mariadb
     environment:
       MYSQL_ROOT_PASSWORD: secretpassword
       MYSQL_DATABASE: slurm_acct_db
       MYSQL_USER: database_mgr
       MYSQL_PASSWORD: password
-    logging:
-      driver: syslog
-      options:
-        tag: "{{.DaemonName}}(image={{.ImageName}};name={{.Name}};id={{.ID}})"
     networks:
       - db
     ports:
