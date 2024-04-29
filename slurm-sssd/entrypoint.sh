@@ -20,6 +20,11 @@ start_slurmd(){
     /opt/slurm/sbin/slurmd -Dvvv
 }
 
+start_slurmdbd(){
+    chmod 700 /var/spool/slurmdbd
+    /opt/slurm/sbin/slurmdbd -Dvvv
+}
+
 export -f init_sssd
 export -f init_munge
 export -f start_slurmctld
@@ -33,4 +38,8 @@ elif [[ $1 == "slurmd" ]]; then
     init_sssd && \
         init_munge && \
         start_slurmd
+elif [[ $1 == "slurmdbd" ]]; then
+    init_sssd && \
+        init_munge && \
+        start_slurmdbd
 fi
