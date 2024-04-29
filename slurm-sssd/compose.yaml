@@ -1,0 +1,69 @@
+services:
+
+  slurmctld:
+    image: localhost/sssd-slurm
+    container_name: slurmctld
+    hostname: slurmctld
+    volumes:
+      - ${PWD}/slurmctld/entrypoint.sh:/opt/slurm/entrypoint.sh:z
+      - ${PWD}/slurmctld/configs/slurm.conf:/opt/slurm/etc/slurm.conf:z
+      - ${PWD}/slurmctld/statedir:/var/spool/slurmctld:z
+      - type: tmpfs 
+        target: /run/munge
+        tmpfs:
+          size: 1048576
+          mode: 1755
+    ports:
+      - "6817:6817"
+    networks:
+      - default
+    depends_on:
+      - slurmdbd
+      - mariadb
+
+  slurmdbd:
+    image: localhost/sssd-slurm
+    container_name: slurmdbd
+    hostname: slurmdbd
+    volumes:
+      - ${PWD}/slurmctld/configs/slurmdbd.conf:/opt/slurm/etc/slurmdbd.conf:z
+      - type: tmpfs 
+        target: /run/munge
+        tmpfs:
+          size: 1048576
+          mode: 1755
+    ports:
+      - "6819:6819"
+    networks:
+      - default
+      - db
+    depends_on:
+      - mariadb
+    
+  mariadb:
+    image: mariadb:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: secretpassword
+      MYSQL_DATABASE: slurm_acct_db
+      MYSQL_USER: database_mgr
+      MYSQL_PASSWORD: password
+    logging:
+      driver: syslog
+      options:
+        tag: "{{.DaemonName}}(image={{.ImageName}};name={{.Name}};id={{.ID}})"
+    networks:
+      - db
+    ports:
+      - "3306:3306"
+    volumes:
+     - ${PWD}/mariadb:/var/lib/mysql
+
+
+networks:
+  default:
+    enable_ipv6: false
+  db:
+    internal: true
+    enable_ipv6: false
+    
+

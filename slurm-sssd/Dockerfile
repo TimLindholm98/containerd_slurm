@@ -42,7 +42,9 @@ RUN groupadd -g $MUNGE_ID -o munge
 RUN useradd -m -u $MUNGE_ID -g $MUNGE_ID -o -s /bin/bash munge
 # Install the munge packages after. Otherwise the installer will create the uid and gid for munge
 # Then its not garanted that its the same across the cluster.
-RUN dnf install munge-devel munge libjwt-devel -y && dnf clean all
+RUN dnf install munge-devel munge libjwt-devel -y \
+    && dnf install mariadb-devel -y \
+    && dnf clean all
 
 # Create slumr user the SLURM_ID arg needs to be the same as the cluster nodes
 ARG SLURM_ID=1101

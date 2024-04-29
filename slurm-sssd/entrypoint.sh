@@ -20,7 +20,6 @@ start_slurmd(){
     /opt/slurm/sbin/slurmd -Dvvv
 }
 
-
 export -f init_sssd
 export -f init_munge
 export -f start_slurmctld
