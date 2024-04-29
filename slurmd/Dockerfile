@@ -23,7 +23,7 @@ WORKDIR /opt/$SLURM_ARCHIVE
 RUN mkdir /opt/slurm
 
 RUN ./configure --with-jwt --prefix /opt/slurm 
-RUN make -j 6 install
+RUN make -j 12 install
 
 WORKDIR /opt/slurm
 
