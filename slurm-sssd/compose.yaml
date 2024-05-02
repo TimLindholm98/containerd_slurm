@@ -6,22 +6,16 @@ services:
     hostname: slurmctld
     volumes:
       - ${PWD}/configs/slurm.conf:/opt/slurm/etc/slurm.conf:z
-      #- ${PWD}/statedir:/var/spool/slurmctld:z
+      - ${PWD}/statedir:/var/spool/slurmctld:z
       - type: tmpfs 
         target: /run/munge
         tmpfs:
           size: 1048576
           mode: 1755
-      - type: tmpfs 
-        target: /var/spool/slurmctld
-        tmpfs:
-          size: 524288000
-          mode: 1600
     ports:
       - "6817:6817"
     depends_on:
       - slurmdbd
-      - mariadb
     command: ./entrypoint.sh slurmctld
 
   slurmdbd:
@@ -36,11 +30,6 @@ services:
         tmpfs:
           size: 1048576
           mode: 1755
-      - type: tmpfs 
-        target: /var/spool/slurmdbd
-        tmpfs:
-          size: 104857600
-          mode: 1770
     ports:
       - "6819:6819"
     depends_on:
@@ -59,12 +48,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-     - type: tmpfs 
-       target: /var/lib/mysql
-       tmpfs:
-         size: 524288000
-         mode: 1775
-     #- ${PWD}/mariadb:/var/lib/mysql:z
+     - ${PWD}/mariadb:/var/lib/mysql
      
     
 

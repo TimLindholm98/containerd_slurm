@@ -17,16 +17,16 @@ start_slurmctld(){
 
 start_slurmd(){
     chmod 700 /var/spool/slurmd && \
-        /opt/slurm/sbin/slurmd -Dvvv
+        /opt/slurm/sbin/slurmd -Dvv
 }
 
 start_slurmdbd(){
     mkdir -p /var/spool/slurmdbd && \
-        chmod 700 /var/spool/slurmdbd && \
-        chmod 600 /opt/slurm/etc/slurmdbd.conf && \
-        chown slurm:slurm /var/spool/slurmdbd && \
-        chown slurm:slurm /opt/slurm/etc/slurmdbd.conf && \
-        /opt/slurm/sbin/slurmdbd -Dvvv
+        chmod 760 /var/spool/slurmdbd && \
+        chmod 660 /opt/slurm/etc/slurmdbd.conf && \
+        chown slurm:root /var/spool/slurmdbd && \
+        chown slurm:root /opt/slurm/etc/slurmdbd.conf && \
+        /opt/slurm/sbin/slurmdbd -Dvv
 }
 
 export -f init_sssd
