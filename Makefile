@@ -1,5 +1,5 @@
 build :
-	docker build -t sssd-slurm
+	docker build -t slurm-sssd slurm-sssd
 up :
 	docker compose up -d
 down :
