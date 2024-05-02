@@ -1,9 +1,12 @@
 build :
-	docker build -t slurm-sssd slurm-sssd
+	cd slurm-sssd && \
+		docker build -t slurm-sssd .
 up :
-	docker compose up -d
+	cd slurm-sssd && \
+		docker compose up -d
 down :
-	docker compose down
+	cd slurm-sssd && \
+		docker compose down
 restart : down up
 upgrade : build restart
 create_network:
