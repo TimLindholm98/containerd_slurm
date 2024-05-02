@@ -1,7 +1,7 @@
 services:
 
   slurmctld:
-    image: localhost/slurm-sssd
+    image: slurm-sssd
     container_name: slurmctld
     hostname: slurmctld
     volumes:
@@ -21,7 +21,7 @@ services:
     command: ./entrypoint.sh slurmctld
 
   slurmdbd:
-    image: localhost/slurm-sssd
+    image: slurm-sssd
     container_name: slurmdbd
     hostname: slurmdbd
     volumes:
