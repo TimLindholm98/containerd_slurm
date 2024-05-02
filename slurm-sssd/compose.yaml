@@ -12,6 +12,8 @@ services:
         tmpfs:
           size: 1048576
           mode: 1755
+    networks:
+      - slurm
     ports:
       - "6817:6817"
     depends_on:
@@ -30,6 +32,8 @@ services:
         tmpfs:
           size: 1048576
           mode: 1755
+    networks:
+      - slurm
     ports:
       - "6819:6819"
     depends_on:
@@ -45,10 +49,13 @@ services:
       MYSQL_DATABASE: slurm_acct_db
       MYSQL_USER: database_mgr
       MYSQL_PASSWORD: password
+    networks:
+      - slurm
     ports:
       - "3306:3306"
     volumes:
      - ${PWD}/mariadb:/var/lib/mysql
      
-    
-
+networks:
+  slurm:
+    external: true
