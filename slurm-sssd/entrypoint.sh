@@ -23,7 +23,8 @@ start_slurmd(){
 }
 
 start_slurmdbd(){
-    chmod 700 /var/spool/slurmdbd && \
+    mkdir -p /var/spool/slurmdbd && \
+        hmod 700 /var/spool/slurmdbd && \
         chown slurm:root /var/spool/slurmdbd && \
         chmod 600 /opt/slurm/etc/slurmdbd.conf && \
         chown slurm:root /opt/slurm/etc/slurmdbd.conf && \
@@ -33,7 +34,8 @@ start_slurmdbd(){
 }
 
 start_slurmrestd(){
-    chmod 700 /var/spool/slurmdbd && \
+    mkdir -p /var/spool/slurmrestd && \
+        chmod 700 /var/spool/slurmrestd && \
         chown slurm:root /var/spool/slurmrestd && \
         chmod 600 /opt/slurm/etc/jwt_hs256.key && \
         chown slurm:root /opt/slurm/etc/jwt_hs256.key && \
@@ -43,7 +45,7 @@ start_slurmrestd(){
 export -f init_sssd
 export -f init_munge
 export -f start_slurmctld
-export -f start_slurm
+export -f start_slurmd
 export -f start_slurmdbd
 export -f start_slurmrestd
 
