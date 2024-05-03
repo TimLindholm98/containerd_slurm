@@ -1,5 +1,25 @@
 services:
 
+  slurmrestd:
+    image: slurm-sssd
+    container_name: slurmrestd
+    hostname: slurmrestd
+    volumes:
+      - ${PWD}/configs/slurm.conf:/opt/slurm/etc/slurm.conf:z
+      - ${PWD}/secrets/jwt_hs256.key:/opt/slurm/etc/jwt_hs256.key:z
+      - type: tmpfs 
+        target: /run/munge
+        tmpfs:
+          size: 1048576
+          mode: 1755
+    networks:
+      - slurm
+    ports:
+      - "6820:6820"
+    depends_on:
+      - slurmctld
+    command: ./entrypoint.sh slurmrestd
+
   slurmctld:
     image: slurm-sssd
     container_name: slurmctld
@@ -7,6 +27,7 @@ services:
     volumes:
       - ${PWD}/configs/slurm.conf:/opt/slurm/etc/slurm.conf:z
       - ${PWD}/statedir:/var/spool/slurmctld:z
+      - ${PWD}/secrets/jwt_hs256.key:/opt/slurm/etc/jwt_hs256.key:z
       - type: tmpfs 
         target: /run/munge
         tmpfs:
@@ -27,6 +48,7 @@ services:
     volumes:
       - ${PWD}/configs/slurmdbd.conf:/opt/slurm/etc/slurmdbd.conf:z
       - ${PWD}/configs/slurm.conf:/opt/slurm/etc/slurm.conf:z
+      - ${PWD}/secrets/jwt_hs256.key:/opt/slurm/etc/jwt_hs256.key:z
       - type: tmpfs 
         target: /run/munge
         tmpfs:
