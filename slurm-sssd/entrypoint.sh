@@ -24,7 +24,7 @@ start_slurmd(){
 
 start_slurmdbd(){
     mkdir -p /var/spool/slurmdbd && \
-        hmod 700 /var/spool/slurmdbd && \
+        chmod 700 /var/spool/slurmdbd && \
         chown slurm:root /var/spool/slurmdbd && \
         chmod 600 /opt/slurm/etc/slurmdbd.conf && \
         chown slurm:root /opt/slurm/etc/slurmdbd.conf && \
